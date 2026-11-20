@@ -1,0 +1,190 @@
+/* ==========================================================================
+   BARBER HOUSE — variables.css
+   Tokens de design (cores, tipografia, espaçamento, layout, efeitos).
+   Para mudar a identidade visual do site, edite apenas este arquivo.
+   ========================================================================== */
+
+:root {
+
+  /* ------------------------------------------------------------------------
+     1. CORES — PALETA BASE
+     Valores brutos da identidade: preto, dourado e branco.
+     ------------------------------------------------------------------------ */
+  --color-black:        #0B0B0B;  /* fundo principal */
+  --color-graphite:     #141414;  /* fundo alternado de seções */
+  --color-charcoal:     #1C1C1C;  /* cards e superfícies elevadas */
+
+  --color-gold:         #C9A24B;  /* dourado principal */
+  --color-gold-light:   #E0BE6A;  /* hover / realces */
+  --color-gold-dark:    #8F7230;  /* bordas e detalhes discretos (bronze) */
+  --color-gold-rgb:     201 162 75; /* canais do dourado, para transparências.
+                                       Se mudar --color-gold, atualize este também. */
+
+  --color-white:        #FFFFFF;
+  --color-gray-warm:    #B8B3A8;  /* texto secundário */
+  --color-gray-muted:   #8A857B;  /* texto terciário (legendas, notas) */
+
+  /* ------------------------------------------------------------------------
+     2. CORES — SEMÂNTICAS
+     É o que o restante do CSS deve usar. Reaponte aqui para mudar o tema.
+     ------------------------------------------------------------------------ */
+  --color-bg:             var(--color-black);
+  --color-bg-alt:         var(--color-graphite);
+  --color-surface:        var(--color-charcoal);
+
+  --color-text:           var(--color-white);
+  --color-text-muted:     var(--color-gray-warm);
+  --color-text-subtle:    var(--color-gray-muted);
+  --color-text-on-accent: var(--color-black);   /* texto sobre fundo dourado */
+
+  --color-accent:         var(--color-gold);
+  --color-accent-hover:   var(--color-gold-light);
+  --color-accent-soft:    rgb(var(--color-gold-rgb) / 0.12);  /* fundos sutis */
+
+  --color-border:         rgb(255 255 255 / 0.10);  /* linhas divisórias */
+  --color-border-strong:  rgb(255 255 255 / 0.22);
+  --color-border-accent:  var(--color-gold-dark);
+
+  --color-focus-ring:     var(--color-gold-light);
+
+  /* Overlays sobre imagens (hero, galeria, lightbox) */
+  --overlay-hero: linear-gradient(
+    to bottom,
+    rgb(11 11 11 / 0.65) 0%,
+    rgb(11 11 11 / 0.55) 45%,
+    rgb(11 11 11 / 0.95) 100%
+  );
+  --overlay-gallery: linear-gradient(to top, rgb(11 11 11 / 0.85) 0%, rgb(11 11 11 / 0) 60%);
+  --overlay-backdrop: rgb(11 11 11 / 0.92);
+  --overlay-header: rgb(11 11 11 / 0.88);  /* header ao rolar (combina com blur) */
+
+  /* ------------------------------------------------------------------------
+     3. TIPOGRAFIA — FAMÍLIAS E PESOS
+     Se trocar a fonte, atualize também o <link> do Google Fonts no index.html.
+     ------------------------------------------------------------------------ */
+  --font-heading: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body:    "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --fw-light:    300;
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* ------------------------------------------------------------------------
+     4. TIPOGRAFIA — ESCALA FLUIDA (clamp: mínimo, preferido, máximo)
+     Cresce suavemente entre ~360px e ~1440px de largura de tela.
+     ------------------------------------------------------------------------ */
+  --fs-label:   0.75rem;                                       /* 12px: rótulos e botões */
+  --fs-xs:      0.8125rem;                                     /* 13px */
+  --fs-sm:      clamp(0.875rem,  0.85rem + 0.12vw, 0.9375rem); /* 14–15px */
+  --fs-base:    clamp(1rem,      0.96rem + 0.2vw,  1.125rem);  /* 16–18px: corpo */
+  --fs-md:      clamp(1.125rem,  1.05rem + 0.4vw,  1.375rem);  /* 18–22px: subtítulos */
+  --fs-lg:      clamp(1.25rem,   1.1rem + 0.75vw,  1.75rem);   /* 20–28px: títulos de card */
+  --fs-xl:      clamp(1.75rem,   1.4rem + 1.6vw,   2.5rem);    /* 28–40px */
+  --fs-2xl:     clamp(2rem,      1.5rem + 2.4vw,   3.25rem);   /* 32–52px: títulos de seção */
+  --fs-hero:    clamp(2.75rem,   1.6rem + 5.5vw,   5.5rem);    /* 44–88px: título do hero */
+
+  /* Entrelinhas */
+  --lh-tight:   1.1;   /* títulos grandes */
+  --lh-snug:    1.25;  /* títulos menores */
+  --lh-normal:  1.6;   /* texto corrido */
+  --lh-relaxed: 1.75;  /* textos longos */
+
+  /* Espaçamento entre letras */
+  --ls-tight:   -0.01em;
+  --ls-normal:  0;
+  --ls-wide:    0.08em;
+  --ls-wider:   0.15em;  /* rótulos em caixa-alta */
+  --ls-widest:  0.2em;   /* botões em caixa-alta */
+
+  /* ------------------------------------------------------------------------
+     5. ESPAÇAMENTOS
+     Escala fixa (base 4px) + valores fluidos para áreas grandes.
+     ------------------------------------------------------------------------ */
+  --space-1:   0.25rem;  /*  4px */
+  --space-2:   0.5rem;   /*  8px */
+  --space-3:   0.75rem;  /* 12px */
+  --space-4:   1rem;     /* 16px */
+  --space-5:   1.5rem;   /* 24px */
+  --space-6:   2rem;     /* 32px */
+  --space-7:   3rem;     /* 48px */
+  --space-8:   4rem;     /* 64px */
+  --space-9:   6rem;     /* 96px */
+  --space-10:  8rem;     /* 128px */
+
+  --section-padding-y:   clamp(4.5rem, 3rem + 6vw, 8rem);      /* respiro vertical de cada seção */
+  --section-header-gap:  clamp(2.5rem, 2rem + 2vw, 4.5rem);    /* título → conteúdo */
+  --container-gutter:    clamp(1rem, 0.5rem + 2.5vw, 2rem);    /* margem lateral (mín. 16px) */
+  --grid-gap:            clamp(1rem, 0.75rem + 1.2vw, 2rem);   /* espaço entre cards/itens */
+
+  /* ------------------------------------------------------------------------
+     6. LAYOUT — LARGURAS, ALTURAS E CAMADAS
+     ------------------------------------------------------------------------ */
+  --container-max:     75rem;   /* 1200px: padrão */
+  --container-wide:    85rem;   /* 1360px: galeria e hero */
+  --container-narrow:  47.5rem; /*  760px: textos e introduções */
+
+  --header-height:     4.5rem;  /* 72px */
+  --touch-target:      3rem;    /* 48px: alvo mínimo de toque */
+
+  /* Pontos de quebra (referência; custom properties não funcionam em @media):
+       --bp-sm: 480px   --bp-md: 768px   --bp-lg: 1024px   --bp-xl: 1280px
+     Mantê-los listados aqui ajuda a usar os mesmos valores nas media queries. */
+
+  --z-base:      1;
+  --z-header:    100;
+  --z-float:     200;   /* botão flutuante de WhatsApp */
+  --z-menu:      300;   /* painel do menu mobile */
+  --z-lightbox:  400;
+
+  /* ------------------------------------------------------------------------
+     7. RAIOS DE BORDA
+     Mínimos, para manter o ar sóbrio e sofisticado.
+     ------------------------------------------------------------------------ */
+  --radius-none: 0;
+  --radius-sm:   2px;
+  --radius-md:   4px;
+  --radius-lg:   8px;
+  --radius-pill: 999px;
+  --radius-full: 50%;
+
+  /* ------------------------------------------------------------------------
+     8. BORDAS
+     ------------------------------------------------------------------------ */
+  --border-width:        1px;
+  --border-thin:         var(--border-width) solid var(--color-border);
+  --border-accent:       var(--border-width) solid var(--color-border-accent);
+
+  /* ------------------------------------------------------------------------
+     9. SOMBRAS
+     Em fundo escuro, sombras pretas aparecem pouco; por isso há também brilho dourado.
+     ------------------------------------------------------------------------ */
+  --shadow-sm:   0 2px 8px rgb(0 0 0 / 0.35);
+  --shadow-md:   0 8px 24px rgb(0 0 0 / 0.45);
+  --shadow-lg:   0 20px 48px rgb(0 0 0 / 0.55);
+  --shadow-gold: 0 8px 24px rgb(var(--color-gold-rgb) / 0.28);  /* hover de botão dourado */
+  --shadow-focus: 0 0 0 3px rgb(var(--color-gold-rgb) / 0.45);
+
+  /* ------------------------------------------------------------------------
+     10. TRANSIÇÕES E ANIMAÇÕES
+     ------------------------------------------------------------------------ */
+  --duration-fast:   150ms;   /* cor de link, foco */
+  --duration-base:   300ms;   /* hover de botões e cards */
+  --duration-slow:   600ms;   /* zoom de imagem, abertura do menu */
+  --duration-reveal: 800ms;   /* animação de entrada ao rolar */
+
+  --ease-standard:   cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out:        cubic-bezier(0.22, 1, 0.36, 1);  /* saída suave: padrão do site */
+
+  --transition-fast:   var(--duration-fast) var(--ease-standard);
+  --transition-base:   var(--duration-base) var(--ease-out);
+  --transition-slow:   var(--duration-slow) var(--ease-out);
+  --transition-reveal: var(--duration-reveal) var(--ease-out);
+
+  /* Parâmetros dos efeitos */
+  --reveal-distance: 1.25rem;  /* deslocamento inicial (20px) na entrada */
+  --reveal-stagger:  120ms;    /* atraso entre data-reveal-delay 1, 2, 3... */
+  --hover-lift:      -2px;     /* elevação de botões e cards no hover */
+  --image-zoom:      1.05;     /* zoom das imagens no hover */
+}

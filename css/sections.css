@@ -1,0 +1,1054 @@
+/* ==========================================================================
+   BARBER HOUSE — sections.css
+   Estilos específicos de cada seção, na ordem em que aparecem na página.
+   Abordagem mobile-first: o estilo base vale para celulares e os ajustes
+   para telas maiores entram em @media (min-width) dentro de cada bloco.
+
+   Pontos de quebra usados:  30em (480px) · 48em (768px) · 64em (1024px) · 80em (1280px)
+
+   Contrato com o JavaScript (classes e atributos que o JS vai alternar):
+     html.js-reveal                  → ativa o estado inicial das animações de entrada
+     [data-reveal].is-visible        → elemento já apareceu na tela
+     .header.header--scrolled        → página rolada (header com fundo)
+     .nav__list.nav__list--open      → menu mobile aberto
+     .nav__toggle[aria-expanded]     → estado do botão hambúrguer
+     body.no-scroll                  → bloqueia a rolagem (menu/lightbox abertos)
+   ========================================================================== */
+
+
+/* ==========================================================================
+   0. ANIMAÇÃO DE ENTRADA (data-reveal)
+   Só esconde os elementos quando o JS marcou <html class="js-reveal">;
+   sem JavaScript, todo o conteúdo permanece visível.
+   ========================================================================== */
+.js-reveal [data-reveal]:not(.is-visible) {
+  opacity: 0;
+}
+
+.js-reveal [data-reveal].is-visible {
+  animation: reveal-up var(--duration-reveal) var(--ease-out) backwards;
+  animation-delay: calc(var(--reveal-delay, 0) * var(--reveal-stagger));
+}
+
+[data-reveal-delay="1"] { --reveal-delay: 1; }
+[data-reveal-delay="2"] { --reveal-delay: 2; }
+[data-reveal-delay="3"] { --reveal-delay: 3; }
+[data-reveal-delay="4"] { --reveal-delay: 4; }
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(var(--reveal-distance));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+
+/* ==========================================================================
+   1. HEADER E NAVEGAÇÃO
+   O fundo com blur fica em ::before: backdrop-filter no próprio header
+   criaria um novo "bloco de contenção" e quebraria o menu em tela cheia.
+   ========================================================================== */
+.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: var(--z-header);
+  height: var(--header-height);
+}
+
+.header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-color: var(--overlay-header);
+  border-bottom: var(--border-thin);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.header--scrolled::before {
+  opacity: 1;
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  max-width: var(--container-wide);
+}
+
+/* --- Botão hambúrguer (mobile) --- */
+.nav__toggle {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: var(--touch-target);
+  height: var(--touch-target);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  transition:
+    border-color var(--transition-base),
+    color var(--transition-base);
+}
+
+/* O texto "Menu" fica disponível só para leitores de tela */
+.nav__toggle-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+.nav__toggle-bars {
+  display: grid;
+  gap: 5px;
+  width: 1.375rem;
+}
+
+.nav__toggle-bar {
+  display: block;
+  height: 1.5px;
+  background-color: currentColor;
+  transition:
+    transform var(--transition-base),
+    opacity var(--transition-fast);
+}
+
+.nav__toggle[aria-expanded="true"] {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+
+.nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* --- Painel do menu (mobile: tela cheia) --- */
+.nav__list {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--header-height) var(--container-gutter) var(--space-7);
+  background-color: var(--color-bg);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-1rem);
+  transition:
+    opacity var(--duration-slow) var(--ease-out),
+    transform var(--duration-slow) var(--ease-out),
+    visibility 0s linear var(--duration-slow);
+}
+
+.nav__list--open {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition-delay: 0s;
+}
+
+.nav__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch-target);
+  padding-inline: var(--space-4);
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: var(--fs-xl);
+  transition: color var(--transition-fast);
+}
+
+.nav__item--cta {
+  margin-top: var(--space-5);
+}
+
+.nav__item--cta .btn {
+  min-height: 3.5rem;
+  padding-inline: 2.5rem;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav__link:hover {
+    color: var(--color-accent-hover);
+  }
+
+  .nav__toggle:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+}
+
+/* --- Desktop: menu horizontal --- */
+@media (min-width: 64em) {
+  .nav__toggle {
+    display: none;
+  }
+
+  .nav__list {
+    position: static;
+    flex-direction: row;
+    gap: var(--space-6);
+    padding: 0;
+    background: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: none;
+  }
+
+  .nav__link {
+    min-height: var(--touch-target);
+    padding-inline: 0;
+    font-family: var(--font-body);
+    font-size: var(--fs-xs);
+    font-weight: var(--fw-medium);
+    letter-spacing: var(--ls-wider);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  /* Sublinhado dourado que cresce no hover */
+  .nav__link::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0.65rem;
+    left: 0;
+    height: 1px;
+    background-color: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-base);
+  }
+
+  .nav__item--cta {
+    margin-top: 0;
+    margin-left: var(--space-3);
+  }
+
+  .nav__item--cta .btn {
+    min-height: 2.75rem;
+    padding-inline: 1.25rem;
+  }
+}
+
+@media (min-width: 64em) and (hover: hover) and (pointer: fine) {
+  .nav__link:hover {
+    color: var(--color-text);
+  }
+
+  .nav__link:hover::after {
+    transform: scaleX(1);
+  }
+}
+
+
+/* ==========================================================================
+   2. HERO
+   ========================================================================== */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  animation: hero-settle 12s var(--ease-out) both;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: var(--overlay-hero);
+}
+
+.hero__content {
+  padding-top: calc(var(--header-height) + var(--space-7));
+  padding-bottom: var(--space-8);
+}
+
+.hero__label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+  color: var(--color-accent);
+  font-size: var(--fs-label);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-widest);
+  text-transform: uppercase;
+}
+
+.hero__label::before {
+  content: "";
+  width: 2.5rem;
+  height: 1px;
+  background-color: currentColor;
+}
+
+.hero__title {
+  font-size: var(--fs-hero);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+}
+
+.hero__title-accent {
+  color: var(--color-accent);
+  font-weight: var(--fw-medium);
+}
+
+.hero__subtitle {
+  max-width: 38rem;
+  margin-top: var(--space-5);
+  color: var(--color-text-muted);
+  font-size: var(--fs-md);
+  line-height: var(--lh-normal);
+}
+
+.hero__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.hero__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  max-width: 34rem;
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: var(--border-thin);
+}
+
+.hero__stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.hero__stat-value {
+  color: var(--color-accent);
+  font-family: var(--font-heading);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-semibold);
+  line-height: 1;
+}
+
+.hero__stat-label {
+  color: var(--color-text-muted);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+}
+
+/* Indicador de rolagem (só em telas maiores) */
+.hero__scroll {
+  display: none;
+}
+
+@media (min-width: 30em) {
+  .hero__actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+}
+
+@media (min-width: 48em) {
+  .hero__content {
+    padding-bottom: var(--space-9);
+  }
+
+  .hero__stats {
+    gap: var(--space-6);
+  }
+
+  .hero__scroll {
+    position: absolute;
+    bottom: var(--space-5);
+    left: 50%;
+    display: block;
+    width: var(--touch-target);
+    height: 4.5rem;
+    transform: translateX(-50%);
+  }
+
+  .hero__scroll-line {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 3.5rem;
+    background: linear-gradient(to bottom, var(--color-accent), transparent);
+    transform-origin: top;
+    animation: scroll-line 2.4s var(--ease-standard) infinite;
+  }
+}
+
+@keyframes hero-settle {
+  from { transform: scale(1.08); }
+  to   { transform: scale(1); }
+}
+
+@keyframes scroll-line {
+  0%   { transform: scaleY(0); opacity: 0; }
+  30%  { opacity: 1; }
+  100% { transform: scaleY(1); opacity: 0; }
+}
+
+
+/* ==========================================================================
+   3. SERVIÇOS E PREÇOS
+   ========================================================================== */
+.services__list {
+  display: grid;
+  gap: 0 var(--space-8);
+}
+
+.service {
+  padding: var(--space-5) var(--space-4);
+  border-bottom: var(--border-thin);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-base);
+}
+
+.service__header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+.service__name {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-medium);
+}
+
+/* Linha pontilhada entre o nome e o preço */
+.service__leader {
+  flex: 1;
+  min-width: 1rem;
+  border-bottom: 1px dotted var(--color-border-strong);
+  transform: translateY(-0.3em);
+}
+
+.service__price {
+  flex-shrink: 0;
+  color: var(--color-accent);
+  font-family: var(--font-heading);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+  white-space: nowrap;
+}
+
+.service__description {
+  max-width: 28rem;
+  margin-top: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+}
+
+/* Selo "Mais pedido" */
+.service__badge {
+  flex-shrink: 0;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-accent);
+  color: var(--color-text-on-accent);
+  font-size: 0.625rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wider);
+  line-height: 1.4;
+  text-transform: uppercase;
+  transform: translateY(-0.2em);
+}
+
+.service--featured {
+  background-color: var(--color-accent-soft);
+  border-bottom-color: var(--color-border-accent);
+}
+
+.services__cta {
+  margin-top: var(--space-8);
+  text-align: center;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .service:hover {
+    background-color: var(--color-surface);
+  }
+
+  .service--featured:hover {
+    background-color: rgb(var(--color-gold-rgb) / 0.18);
+  }
+}
+
+@media (min-width: 48em) {
+  .services__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+/* ==========================================================================
+   4. GALERIA
+   Mosaico de 2 colunas no celular e 4 no tablet/desktop. Os modificadores
+   --tall (2 linhas) e --wide (2 colunas, apenas a partir de 48em) quebram a
+   grade; "dense" preenche lacunas. Com os 8 itens atuais o mosaico fecha
+   sem buracos nos dois layouts.
+   ========================================================================== */
+.gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 9.5rem;
+  grid-auto-flow: dense;
+  gap: var(--space-2);
+}
+
+.gallery__item {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+}
+
+.gallery__item--tall {
+  grid-row: span 2;
+}
+
+.gallery__button {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: zoom-in;
+}
+
+.gallery__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.85) contrast(1.05);
+  transition:
+    transform var(--transition-slow),
+    filter var(--transition-slow);
+}
+
+.gallery__caption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: var(--space-6) var(--space-4) var(--space-3);
+  background: var(--overlay-gallery);
+  color: var(--color-text);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-wider);
+  text-align: left;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(0.5rem);
+  transition:
+    opacity var(--transition-base),
+    transform var(--transition-base);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .gallery__button:hover .gallery__image {
+    transform: scale(var(--image-zoom));
+    filter: saturate(1) contrast(1.05);
+  }
+
+  .gallery__button:hover .gallery__caption {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.gallery__button:focus-visible {
+  outline-offset: -3px;
+}
+
+.gallery__button:focus-visible .gallery__caption {
+  opacity: 1;
+  transform: none;
+}
+
+@media (min-width: 48em) {
+  .gallery__grid {
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 14rem;
+    gap: var(--space-3);
+  }
+
+  .gallery__item--wide {
+    grid-column: span 2;
+  }
+}
+
+@media (min-width: 64em) {
+  .gallery__grid {
+    grid-auto-rows: 16rem;
+    gap: var(--space-4);
+  }
+}
+
+
+/* ==========================================================================
+   5. SOBRE
+   ========================================================================== */
+.about__grid {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.about__media {
+  position: relative;
+  isolation: isolate;
+  width: calc(100% - var(--space-4));
+  max-width: 28rem;
+  margin-inline: 0 auto;
+}
+
+/* Moldura dourada deslocada atrás da foto */
+.about__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border: var(--border-width) solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  transform: translate(var(--space-4), var(--space-4));
+  pointer-events: none;
+}
+
+.about__image {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  filter: saturate(0.85) contrast(1.05);
+}
+
+.about__text {
+  display: grid;
+  gap: var(--space-4);
+  color: var(--color-text-muted);
+  line-height: var(--lh-relaxed);
+}
+
+.about__quote {
+  margin-block: var(--space-6);
+  padding-left: var(--space-5);
+  border-left: 2px solid var(--color-accent);
+  font-family: var(--font-heading);
+  font-size: var(--fs-lg);
+  font-style: italic;
+  line-height: var(--lh-snug);
+}
+
+.about__features {
+  display: grid;
+  gap: var(--space-5);
+  padding-top: var(--space-6);
+  border-top: var(--border-thin);
+}
+
+.feature__icon {
+  margin-bottom: var(--space-3);
+  color: var(--color-accent);
+}
+
+.feature__title {
+  margin-bottom: var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+}
+
+.feature__text {
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+}
+
+@media (min-width: 48em) {
+  .about__features {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 64em) {
+  .about__grid {
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: var(--space-9);
+    align-items: center;
+  }
+
+  .about__media {
+    max-width: none;
+  }
+}
+
+
+/* ==========================================================================
+   6. DEPOIMENTOS (cards estáticos)
+   ========================================================================== */
+.testimonials__grid {
+  display: grid;
+  gap: var(--grid-gap);
+}
+
+.testimonial {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  border: var(--border-thin);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  transition:
+    border-color var(--transition-base),
+    transform var(--transition-base);
+}
+
+/* Aspas decorativas */
+.testimonial::before {
+  content: "\201C";
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-5);
+  color: var(--color-accent);
+  font-family: var(--font-heading);
+  font-size: 5rem;
+  line-height: 1;
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.testimonial__stars {
+  color: var(--color-accent);
+  font-size: var(--fs-md);
+  letter-spacing: 0.2em;
+  line-height: 1;
+}
+
+.testimonial__quote {
+  flex: 1;
+  color: var(--color-text);
+  line-height: var(--lh-relaxed);
+}
+
+.testimonial__author {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-top: var(--space-4);
+  border-top: var(--border-thin);
+}
+
+.testimonial__name {
+  font-weight: var(--fw-semibold);
+}
+
+.testimonial__role {
+  color: var(--color-text-subtle);
+  font-size: var(--fs-sm);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .testimonial:hover {
+    border-color: var(--color-border-accent);
+    transform: translateY(var(--hover-lift));
+  }
+}
+
+@media (min-width: 64em) {
+  .testimonials__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+/* ==========================================================================
+   7. LOCALIZAÇÃO, HORÁRIOS E CONTATO
+   ========================================================================== */
+.contact__grid {
+  display: grid;
+  gap: var(--grid-gap);
+}
+
+.contact__card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-6);
+  border: var(--border-thin);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg-alt);
+}
+
+.contact__title {
+  margin-bottom: var(--space-5);
+  font-size: var(--fs-lg);
+}
+
+/* Filete dourado curto sob o título do card */
+.contact__title::after {
+  content: "";
+  display: block;
+  width: 2rem;
+  height: 1px;
+  margin-top: var(--space-3);
+  background-color: var(--color-accent);
+}
+
+.contact__address {
+  color: var(--color-text-muted);
+  line-height: var(--lh-relaxed);
+}
+
+.contact__note {
+  margin-top: var(--space-4);
+  color: var(--color-text-subtle);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+}
+
+/* Horários */
+.hours__row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding-block: var(--space-3);
+  border-bottom: var(--border-thin);
+}
+
+.hours__row:first-child {
+  padding-top: 0;
+}
+
+.hours__row:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.hours__day {
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+}
+
+.hours__time {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Lista de contatos */
+.contact__list {
+  display: grid;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.contact__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.contact__label {
+  color: var(--color-text-subtle);
+  font-size: var(--fs-label);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+}
+
+.contact__link {
+  align-self: flex-start;
+  overflow-wrap: anywhere;
+  transition: color var(--transition-fast);
+}
+
+.contact__card .btn {
+  margin-top: auto;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .contact__link:hover {
+    color: var(--color-accent-hover);
+  }
+}
+
+@media (min-width: 64em) {
+  .contact__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+/* ==========================================================================
+   8. FOOTER
+   ========================================================================== */
+.footer {
+  background-color: var(--color-bg-alt);
+  border-top: var(--border-thin);
+  /* Espaço extra para o botão flutuante não cobrir o rodapé no celular */
+  padding-bottom: 5rem;
+}
+
+.footer__notice {
+  background-color: var(--color-accent-soft);
+  border-bottom: var(--border-accent);
+}
+
+.footer__notice-text {
+  padding-block: var(--space-3);
+  color: var(--color-accent-hover);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-wide);
+  text-align: center;
+}
+
+.footer__main {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-7) var(--space-5);
+  padding-block: var(--space-8);
+}
+
+.footer__brand {
+  grid-column: 1 / -1;
+}
+
+.footer__tagline {
+  margin-top: var(--space-4);
+  color: var(--color-text-muted);
+  font-family: var(--font-heading);
+  font-size: var(--fs-md);
+  font-style: italic;
+}
+
+.footer__title {
+  margin-bottom: var(--space-4);
+  color: var(--color-accent);
+  font-size: var(--fs-label);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+}
+
+.footer__list {
+  display: grid;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--fs-sm);
+}
+
+.footer__link {
+  display: inline-block;
+  padding-block: var(--space-1);
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast);
+}
+
+.footer__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-block: var(--space-5);
+  border-top: var(--border-thin);
+  color: var(--color-text-subtle);
+  font-size: var(--fs-xs);
+}
+
+.footer__top {
+  align-self: flex-start;
+  color: var(--color-accent);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  transition: color var(--transition-fast);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .footer__link:hover,
+  .footer__top:hover {
+    color: var(--color-accent-hover);
+  }
+}
+
+@media (min-width: 48em) {
+  .footer__main {
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  }
+
+  .footer__brand {
+    grid-column: auto;
+  }
+
+  .footer__bottom {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer__top {
+    align-self: auto;
+  }
+}
+
+@media (min-width: 64em) {
+  /* O botão flutuante some no desktop, então o espaço extra também */
+  .footer {
+    padding-bottom: 0;
+  }
+}

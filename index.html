@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Barber House | Barbearia Premium (projeto demonstrativo)</title>
+  <meta name="description" content="Barber House: cortes clássicos e modernos, barba com toalha quente e atendimento exclusivo. Projeto fictício desenvolvido para portfólio.">
+  <meta name="theme-color" content="#0B0B0B">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="Barber House | Mais que um corte. Um ritual.">
+  <meta property="og:description" content="Barbearia premium em estilo clássico e moderno. Projeto demonstrativo para portfólio.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1773904215697-e6c21fc27ac2?auto=format&fit=crop&w=1200&q=75">
+
+  <!-- Favicon (monograma BH em SVG embutido) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230B0B0B'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='28' font-weight='700' text-anchor='middle' fill='%23C9A24B'%3EBH%3C/text%3E%3C/svg%3E">
+
+  <!-- Fontes: Playfair Display (títulos) + Inter (corpo) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap">
+
+  <!-- Estilos (a ordem importa: variáveis → base → componentes → seções) -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/sections.css">
+
+  <!-- JavaScript (módulo ES; requer servidor local, ex.: Live Server) -->
+  <script type="module" src="js/main.js"></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo principal</a>
+
+  <!-- ============================================================
+       HEADER
+       ============================================================ -->
+  <header class="header" data-header>
+    <div class="header__inner container">
+      <a class="logo" href="#inicio" aria-label="Barber House, ir para o início">
+        <span class="logo__mark" aria-hidden="true">BH</span>
+        <span class="logo__text">Barber House</span>
+      </a>
+
+      <nav class="nav" aria-label="Navegação principal">
+        <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="menu" data-nav-toggle>
+          <span class="nav__toggle-label">Menu</span>
+          <span class="nav__toggle-bars" aria-hidden="true">
+            <span class="nav__toggle-bar"></span>
+            <span class="nav__toggle-bar"></span>
+            <span class="nav__toggle-bar"></span>
+          </span>
+        </button>
+
+        <ul class="nav__list" id="menu" data-nav-menu>
+          <li class="nav__item"><a class="nav__link" href="#servicos">Serviços</a></li>
+          <li class="nav__item"><a class="nav__link" href="#galeria">Galeria</a></li>
+          <li class="nav__item"><a class="nav__link" href="#sobre">Sobre</a></li>
+          <li class="nav__item"><a class="nav__link" href="#depoimentos">Depoimentos</a></li>
+          <li class="nav__item"><a class="nav__link" href="#contato">Contato</a></li>
+          <li class="nav__item nav__item--cta">
+            <a class="btn btn--outline btn--sm" href="#contato" data-whatsapp target="_blank" rel="noopener noreferrer">Agendar</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo">
+
+    <!-- ============================================================
+         HERO
+         ============================================================ -->
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <div class="hero__media">
+        <!-- Imagem do hero: carregamento prioritário (não usar lazy aqui) -->
+        <img
+          class="hero__image"
+          src="https://images.unsplash.com/photo-1773904215697-e6c21fc27ac2?auto=format&fit=crop&w=1600&q=75"
+          srcset="
+            https://images.unsplash.com/photo-1773904215697-e6c21fc27ac2?auto=format&fit=crop&w=800&q=70 800w,
+            https://images.unsplash.com/photo-1773904215697-e6c21fc27ac2?auto=format&fit=crop&w=1600&q=75 1600w,
+            https://images.unsplash.com/photo-1773904215697-e6c21fc27ac2?auto=format&fit=crop&w=2400&q=75 2400w"
+          sizes="100vw"
+          width="1600" height="1067"
+          alt="Interior sofisticado de barbearia com cadeiras de couro e pias, em ambiente de pouca luz"
+          fetchpriority="high">
+        <div class="hero__overlay" aria-hidden="true"></div>
+      </div>
+
+      <div class="hero__content container">
+        <p class="hero__label">Barbearia · Desde 2014</p>
+        <h1 class="hero__title" id="hero-title" data-reveal>
+          Mais que um corte.<br>
+          <em class="hero__title-accent">Um ritual.</em>
+        </h1>
+        <p class="hero__subtitle" data-reveal data-reveal-delay="1">
+          Tradição de barbearia com acabamento de alfaiataria. Cortes precisos,
+          barba com toalha quente e um ambiente pensado para você relaxar.
+        </p>
+        <div class="hero__actions" data-reveal data-reveal-delay="2">
+          <a class="btn btn--primary btn--lg" href="#contato" data-whatsapp target="_blank" rel="noopener noreferrer">Agendar horário</a>
+          <a class="btn btn--outline btn--lg" href="#servicos">Ver serviços</a>
+        </div>
+
+        <!-- Números demonstrativos (fictícios) -->
+        <ul class="hero__stats" data-reveal data-reveal-delay="3">
+          <li class="hero__stat">
+            <strong class="hero__stat-value">10+</strong>
+            <span class="hero__stat-label">anos de tradição</span>
+          </li>
+          <li class="hero__stat">
+            <strong class="hero__stat-value">15 mil</strong>
+            <span class="hero__stat-label">clientes atendidos</span>
+          </li>
+          <li class="hero__stat">
+            <strong class="hero__stat-value">4,9</strong>
+            <span class="hero__stat-label">avaliação média</span>
+          </li>
+        </ul>
+      </div>
+
+      <a class="hero__scroll" href="#servicos" aria-label="Rolar para a seção de serviços">
+        <span class="hero__scroll-line" aria-hidden="true"></span>
+      </a>
+    </section>
+
+    <!-- ============================================================
+         SERVIÇOS E PREÇOS
+         ============================================================ -->
+    <section class="section services" id="servicos" aria-labelledby="services-title">
+      <div class="container">
+        <header class="section__header" data-reveal>
+          <p class="section__label">Nossos serviços</p>
+          <h2 class="section__title" id="services-title">Cuidado em cada detalhe</h2>
+          <p class="section__intro">
+            Do corte clássico ao combo completo, cada serviço é feito com tempo,
+            técnica e produtos de qualidade. Valores demonstrativos.
+          </p>
+        </header>
+
+        <ul class="services__list">
+          <li class="service" data-reveal>
+            <div class="service__header">
+              <h3 class="service__name">Corte clássico</h3>
+              <span class="service__leader" aria-hidden="true"></span>
+              <span class="service__price">R$ 60</span>
+            </div>
+            <p class="service__description">Tesoura e máquina, com acabamento na navalha.</p>
+          </li>
+
+          <li class="service" data-reveal data-reveal-delay="1">
+            <div class="service__header">
+              <h3 class="service__name">Degradê navalhado</h3>
+              <span class="service__leader" aria-hidden="true"></span>
+              <span class="service__price">R$ 70</span>
+            </div>
+            <p class="service__description">Transição suave e contornos definidos na navalha.</p>
+          </li>
+
+          <li class="service" data-reveal>
+            <div class="service__header">
+              <h3 class="service__name">Barba com toalha quente</h3>
+              <span class="service__leader" aria-hidden="true"></span>
+              <span class="service__price">R$ 50</span>
+            </div>
+            <p class="service__description">Modelagem, toalha quente e hidratação final.</p>
+          </li>
+
+          <li class="service service--featured" data-reveal data-reveal-delay="1">
+            <div class="service__header">
+              <h3 class="service__name">Corte + barba</h3>
+              <span class="service__badge">Mais pedido</span>
+              <span class="service__leader" aria-hidden="true"></span>
+              <span class="service__price">R$ 100</span>
+            </div>
+            <p class="service__description">O visual completo, no mesmo horário.</p>
+          </li>
+
+          <li class="service" data-reveal>
+            <div class="service__header">
+              <h3 class="service__name">Pigmentação</h3>
+              <span class="service__leader" aria-hidden="true"></span>
+              <span class="service__price">R$ 45</span>
+            </div>
+            <p class="service__description">Cobertura natural de falhas e fios brancos.</p>
+          </li>
+
+          <li class="service" data-reveal data-reveal-delay="1">
+            <div class="service__header">
+              <h3 class="service__name">Sobrancelha na navalha</h3>
+              <span class="service__leader" aria-hidden="true"></span>
+              <span class="service__price">R$ 25</span>
+            </div>
+            <p class="service__description">Design discreto que valoriza o olhar.</p>
+          </li>
+
+          <li class="service" data-reveal>
+            <div class="service__header">
+              <h3 class="service__name">Hidratação capilar</h3>
+              <span class="service__leader" aria-hidden="true"></span>
+              <span class="service__price">R$ 40</span>
+            </div>
+            <p class="service__description">Tratamento para fios mais macios e com brilho.</p>
+          </li>
+
+          <li class="service" data-reveal data-reveal-delay="1">
+            <div class="service__header">
+              <h3 class="service__name">Combo Premium</h3>
+              <span class="service__leader" aria-hidden="true"></span>
+              <span class="service__price">R$ 150</span>
+            </div>
+            <p class="service__description">Corte, barba, sobrancelha e hidratação.</p>
+          </li>
+        </ul>
+
+        <div class="services__cta" data-reveal>
+          <a class="btn btn--primary" href="#contato" data-whatsapp target="_blank" rel="noopener noreferrer">Agendar meu horário</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         GALERIA
+         ============================================================ -->
+    <section class="section section--alt gallery" id="galeria" aria-labelledby="gallery-title">
+      <div class="container">
+        <header class="section__header" data-reveal>
+          <p class="section__label">Galeria</p>
+          <h2 class="section__title" id="gallery-title">Estilo que fala por você</h2>
+          <p class="section__intro">Uma amostra do que acontece na nossa cadeira. Toque em uma foto para ampliar.</p>
+        </header>
+
+        <!-- Cada botão guarda a imagem grande em data-full e a legenda em data-caption (usados pelo gallery.js) -->
+        <ul class="gallery__grid">
+          <li class="gallery__item gallery__item--tall" data-reveal>
+            <button class="gallery__button" type="button"
+              data-gallery-item
+              data-full="https://images.unsplash.com/photo-1647140655214-e4a2d914971f?auto=format&fit=crop&w=1600&q=80"
+              data-caption="Corte na tesoura"
+              aria-label="Ampliar foto: Corte na tesoura">
+              <img class="gallery__image"
+                src="https://images.unsplash.com/photo-1647140655214-e4a2d914971f?auto=format&fit=crop&w=700&q=70"
+                width="700" height="933" loading="lazy"
+                alt="Barbeiro cortando o cabelo de um cliente com tesoura">
+              <span class="gallery__caption">Corte na tesoura</span>
+            </button>
+          </li>
+
+          <li class="gallery__item" data-reveal data-reveal-delay="1">
+            <button class="gallery__button" type="button"
+              data-gallery-item
+              data-full="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=1600&q=80"
+              data-caption="Acabamento na navalha"
+              aria-label="Ampliar foto: Acabamento na navalha">
+              <img class="gallery__image"
+                src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=700&q=70"
+                width="700" height="700" loading="lazy"
+                alt="Barbeiro tatuado fazendo o acabamento com navalha no cabelo de um cliente">
+              <span class="gallery__caption">Acabamento na navalha</span>
+            </button>
+          </li>
+
+          <li class="gallery__item" data-reveal data-reveal-delay="2">
+            <button class="gallery__button" type="button"
+              data-gallery-item
+              data-full="https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=1600&q=80"
+              data-caption="Finalização e styling"
+              aria-label="Ampliar foto: Finalização e styling">
+              <img class="gallery__image"
+                src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?auto=format&fit=crop&w=700&q=70"
+                width="700" height="700" loading="lazy"
+                alt="Barbeiro de avental jeans secando e modelando o cabelo de um cliente">
+              <span class="gallery__caption">Finalização e styling</span>
+            </button>
+          </li>
+
+          <li class="gallery__item gallery__item--wide" data-reveal>
+            <button class="gallery__button" type="button"
+              data-gallery-item
+              data-full="https://images.unsplash.com/photo-1657105052497-f996284ffff8?auto=format&fit=crop&w=1600&q=80"
+              data-caption="Textura com tesoura de desbaste"
+              aria-label="Ampliar foto: Textura com tesoura de desbaste">
+              <img class="gallery__image"
+                src="https://images.unsplash.com/photo-1657105052497-f996284ffff8?auto=format&fit=crop&w=1100&q=70"
+                width="1100" height="733" loading="lazy"
+                alt="Barbeiro usando tesoura de desbaste e pente para aparar o cabelo de um cliente">
+              <span class="gallery__caption">Textura com tesoura de desbaste</span>
+            </button>
+          </li>
+
+          <li class="gallery__item" data-reveal data-reveal-delay="1">
+            <button class="gallery__button" type="button"
+              data-gallery-item
+              data-full="https://images.unsplash.com/photo-1759134198561-e2041049419c?auto=format&fit=crop&w=1600&q=80"
+              data-caption="Corte moderno"
+              aria-label="Ampliar foto: Corte moderno">
+              <img class="gallery__image"
+                src="https://images.unsplash.com/photo-1759134198561-e2041049419c?auto=format&fit=crop&w=700&q=70"
+                width="700" height="700" loading="lazy"
+                alt="Barbeiros cortando cabelo em uma barbearia moderna">
+              <span class="gallery__caption">Corte moderno</span>
+            </button>
+          </li>
+
+          <li class="gallery__item gallery__item--tall" data-reveal data-reveal-delay="2">
+            <button class="gallery__button" type="button"
+              data-gallery-item
+              data-full="https://images.unsplash.com/photo-1783908688260-0c47404926f3?auto=format&fit=crop&w=1600&q=80"
+              data-caption="Degradê de precisão"
+              aria-label="Ampliar foto: Degradê de precisão">
+              <img class="gallery__image"
+                src="https://images.unsplash.com/photo-1783908688260-0c47404926f3?auto=format&fit=crop&w=700&q=70"
+                width="700" height="933" loading="lazy"
+                alt="Barbeiro de luvas pretas cortando o cabelo de um cliente">
+              <span class="gallery__caption">Degradê de precisão</span>
+            </button>
+          </li>
+
+          <li class="gallery__item" data-reveal>
+            <button class="gallery__button" type="button"
+              data-gallery-item
+              data-full="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=1600&q=80"
+              data-caption="Ferramentas de ofício"
+              aria-label="Ampliar foto: Ferramentas de ofício">
+              <img class="gallery__image"
+                src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=700&q=70"
+                width="700" height="700" loading="lazy"
+                alt="Máquinas, tesouras, pente e produtos de barbearia sobre uma tábua de ardósia">
+              <span class="gallery__caption">Ferramentas de ofício</span>
+            </button>
+          </li>
+
+          <li class="gallery__item" data-reveal data-reveal-delay="1">
+            <button class="gallery__button" type="button"
+              data-gallery-item
+              data-full="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=1600&q=80"
+              data-caption="Sua vez na cadeira"
+              aria-label="Ampliar foto: Sua vez na cadeira">
+              <img class="gallery__image"
+                src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=700&q=70"
+                width="700" height="700" loading="lazy"
+                alt="Homem sentado em uma cadeira de barbeiro">
+              <span class="gallery__caption">Sua vez na cadeira</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Lightbox da galeria (controlado pelo gallery.js) -->
+    <dialog class="lightbox" aria-label="Foto ampliada da galeria" data-lightbox>
+      <button class="lightbox__close" type="button" aria-label="Fechar" data-lightbox-close>&times;</button>
+      <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Foto anterior" data-lightbox-prev>&lsaquo;</button>
+      <figure class="lightbox__figure">
+        <img class="lightbox__image" alt="" data-lightbox-image>
+        <figcaption class="lightbox__caption" data-lightbox-caption></figcaption>
+      </figure>
+      <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Próxima foto" data-lightbox-next>&rsaquo;</button>
+    </dialog>
+
+    <!-- ============================================================
+         SOBRE
+         ============================================================ -->
+    <section class="section about" id="sobre" aria-labelledby="about-title">
+      <div class="container about__grid">
+        <figure class="about__media" data-reveal>
+          <img class="about__image"
+            src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?auto=format&fit=crop&w=900&q=75"
+            width="900" height="1200" loading="lazy"
+            alt="Cadeira de barbeiro de couro preto diante de uma parede de tijolos">
+        </figure>
+
+        <div class="about__content">
+          <header class="section__header section__header--left" data-reveal>
+            <p class="section__label">Sobre a Barber House</p>
+            <h2 class="section__title" id="about-title">Um clube de cuidado masculino</h2>
+          </header>
+
+          <div class="about__text" data-reveal data-reveal-delay="1">
+            <p>
+              A Barber House nasceu da vontade de resgatar o ritual da barbearia
+              tradicional, com hora marcada, conversa boa e atenção total ao cliente,
+              sem abrir mão da estética e da técnica atuais.
+            </p>
+            <p>
+              Nossa equipe combina anos de experiência com formação contínua, e cada
+              atendimento é tratado como um trabalho feito sob medida.
+            </p>
+          </div>
+
+          <blockquote class="about__quote" data-reveal data-reveal-delay="2">
+            <p>Quem sai da nossa cadeira deve se sentir ainda mais confiante.</p>
+          </blockquote>
+
+          <ul class="about__features">
+            <li class="feature" data-reveal>
+              <svg class="feature__icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.5 7.5 20 18M8.5 16.5 20 6"/>
+              </svg>
+              <h3 class="feature__title">Profissionais experientes</h3>
+              <p class="feature__text">Barbeiros com anos de prática e atualização constante.</p>
+            </li>
+            <li class="feature" data-reveal data-reveal-delay="1">
+              <svg class="feature__icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>
+              </svg>
+              <h3 class="feature__title">Produtos premium</h3>
+              <p class="feature__text">Linhas selecionadas para cabelo, barba e pele.</p>
+            </li>
+            <li class="feature" data-reveal data-reveal-delay="2">
+              <svg class="feature__icon" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M12 3l9 9-9 9-9-9z"/>
+              </svg>
+              <h3 class="feature__title">Ambiente exclusivo</h3>
+              <p class="feature__text">Espaço reservado, confortável e sem pressa.</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         DEPOIMENTOS (demonstrativos, cards estáticos)
+         ============================================================ -->
+    <section class="section section--alt testimonials" id="depoimentos" aria-labelledby="testimonials-title">
+      <div class="container">
+        <header class="section__header" data-reveal>
+          <p class="section__label">Depoimentos</p>
+          <h2 class="section__title" id="testimonials-title">Quem já sentou, recomenda</h2>
+          <p class="section__intro">Depoimentos fictícios, criados para ilustrar o layout.</p>
+        </header>
+
+        <div class="testimonials__grid">
+          <figure class="testimonial" data-reveal>
+            <p class="testimonial__stars" aria-label="Avaliação: 5 de 5 estrelas"><span aria-hidden="true">★★★★★</span></p>
+            <blockquote class="testimonial__quote">
+              <p>Melhor degradê que já fiz. Atendimento tranquilo, no horário e com um resultado impecável.</p>
+            </blockquote>
+            <figcaption class="testimonial__author">
+              <span class="testimonial__name">Rafael M.</span>
+              <span class="testimonial__role">Designer</span>
+            </figcaption>
+          </figure>
+
+          <figure class="testimonial" data-reveal data-reveal-delay="1">
+            <p class="testimonial__stars" aria-label="Avaliação: 5 de 5 estrelas"><span aria-hidden="true">★★★★★</span></p>
+            <blockquote class="testimonial__quote">
+              <p>A barba com toalha quente virou um compromisso mensal. O ambiente é um refúgio no meio da semana.</p>
+            </blockquote>
+            <figcaption class="testimonial__author">
+              <span class="testimonial__name">Carlos E.</span>
+              <span class="testimonial__role">Engenheiro</span>
+            </figcaption>
+          </figure>
+
+          <figure class="testimonial" data-reveal data-reveal-delay="2">
+            <p class="testimonial__stars" aria-label="Avaliação: 5 de 5 estrelas"><span aria-hidden="true">★★★★★</span></p>
+            <blockquote class="testimonial__quote">
+              <p>Detalhista de verdade. Explicaram cada passo e acertaram o corte logo na primeira vez.</p>
+            </blockquote>
+            <figcaption class="testimonial__author">
+              <span class="testimonial__name">Thiago S.</span>
+              <span class="testimonial__role">Fotógrafo</span>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         LOCALIZAÇÃO, HORÁRIOS E CONTATO
+         ============================================================ -->
+    <section class="section contact" id="contato" aria-labelledby="contact-title">
+      <div class="container">
+        <header class="section__header" data-reveal>
+          <p class="section__label">Contato</p>
+          <h2 class="section__title" id="contact-title">Reserve seu horário</h2>
+          <p class="section__intro">
+            Todas as informações abaixo são fictícias e fazem parte de um projeto de portfólio.
+          </p>
+        </header>
+
+        <div class="contact__grid">
+          <article class="contact__card" data-reveal>
+            <h3 class="contact__title">Endereço</h3>
+            <address class="contact__address">
+              Rua Exemplo, 123<br>
+              Centro, São Paulo – SP<br>
+              CEP 00000-000
+            </address>
+            <p class="contact__note">Endereço fictício.</p>
+            <!-- Para um mapa real, insira aqui um <iframe> do Google Maps com o endereço do cliente -->
+          </article>
+
+          <article class="contact__card" data-reveal data-reveal-delay="1">
+            <h3 class="contact__title">Horários</h3>
+            <dl class="hours">
+              <div class="hours__row">
+                <dt class="hours__day">Segunda a sexta</dt>
+                <dd class="hours__time">09h às 20h</dd>
+              </div>
+              <div class="hours__row">
+                <dt class="hours__day">Sábado</dt>
+                <dd class="hours__time">09h às 18h</dd>
+              </div>
+              <div class="hours__row">
+                <dt class="hours__day">Domingo e feriados</dt>
+                <dd class="hours__time">Fechado</dd>
+              </div>
+            </dl>
+          </article>
+
+          <article class="contact__card" data-reveal data-reveal-delay="2">
+            <h3 class="contact__title">Fale conosco</h3>
+            <ul class="contact__list">
+              <li class="contact__item">
+                <span class="contact__label">WhatsApp / Telefone</span>
+                <a class="contact__link" href="tel:+5511900000000">(11) 90000-0000</a>
+              </li>
+              <li class="contact__item">
+                <span class="contact__label">E-mail</span>
+                <a class="contact__link" href="mailto:contato@barberhouse.example">contato@barberhouse.example</a>
+              </li>
+              <li class="contact__item">
+                <span class="contact__label">Instagram</span>
+                <a class="contact__link" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">@barberhouse.demo</a>
+              </li>
+            </ul>
+            <a class="btn btn--primary btn--block" href="#contato" data-whatsapp target="_blank" rel="noopener noreferrer">Chamar no WhatsApp</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer">
+    <div class="footer__notice">
+      <p class="container footer__notice-text">
+        Projeto demonstrativo criado para portfólio. Nome, endereço, preços e depoimentos são fictícios.
+      </p>
+    </div>
+
+    <div class="footer__main container">
+      <div class="footer__brand">
+        <a class="logo" href="#inicio" aria-label="Barber House, voltar ao início">
+          <span class="logo__mark" aria-hidden="true">BH</span>
+          <span class="logo__text">Barber House</span>
+        </a>
+        <p class="footer__tagline">Mais que um corte. Um ritual.</p>
+      </div>
+
+      <nav class="footer__nav" aria-label="Links rápidos">
+        <p class="footer__title">Navegação</p>
+        <ul class="footer__list">
+          <li><a class="footer__link" href="#servicos">Serviços</a></li>
+          <li><a class="footer__link" href="#galeria">Galeria</a></li>
+          <li><a class="footer__link" href="#sobre">Sobre</a></li>
+          <li><a class="footer__link" href="#depoimentos">Depoimentos</a></li>
+          <li><a class="footer__link" href="#contato">Contato</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer__hours">
+        <p class="footer__title">Horários</p>
+        <ul class="footer__list">
+          <li>Seg a sex: 09h às 20h</li>
+          <li>Sábado: 09h às 18h</li>
+          <li>Domingo: fechado</li>
+        </ul>
+      </div>
+
+      <div class="footer__social">
+        <p class="footer__title">Redes</p>
+        <ul class="footer__list">
+          <li><a class="footer__link" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a class="footer__link" href="#contato" data-whatsapp target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom container">
+      <p class="footer__copy">
+        &copy; <span data-year>2026</span> Barber House (fictício). Todos os direitos reservados ao conceito do projeto.
+      </p>
+      <p class="footer__credits">
+        Fotos: <a class="footer__link" href="https://unsplash.com/" target="_blank" rel="noopener noreferrer">Unsplash</a>
+      </p>
+      <a class="footer__top" href="#inicio" aria-label="Voltar ao topo da página">Voltar ao topo <span aria-hidden="true">↑</span></a>
+    </div>
+  </footer>
+
+  <!-- Botão flutuante de agendamento (visível principalmente no celular) -->
+  <a class="whatsapp-float" href="#contato" data-whatsapp target="_blank" rel="noopener noreferrer" aria-label="Agendar pelo WhatsApp">
+    <svg class="whatsapp-float__icon" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.7-5.4A8.5 8.5 0 1 1 21 11.5z"/>
+    </svg>
+    <span class="whatsapp-float__label">Agendar</span>
+  </a>
+</body>
+</html>

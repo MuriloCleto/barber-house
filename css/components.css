@@ -1,0 +1,386 @@
+/* ==========================================================================
+   BARBER HOUSE — components.css
+   Peças reutilizáveis (BEM): logo, botões, estrutura de seção (rótulo, título,
+   introdução), botão flutuante de WhatsApp e lightbox da galeria.
+   Estilos específicos de cada seção ficam em sections.css.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. LOGO  (header e footer)
+   -------------------------------------------------------------------------- */
+.logo {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--color-text);
+}
+
+.logo__mark {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: var(--border-width) solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  color: var(--color-accent);
+  font-family: var(--font-heading);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.02em;
+  transition:
+    background-color var(--transition-base),
+    color var(--transition-base);
+}
+
+.logo__text {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .logo:hover .logo__mark {
+    background-color: var(--color-accent);
+    color: var(--color-text-on-accent);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   2. BOTÕES
+   Estados: normal · hover (preenchimento deslizante) · foco · ativo · desabilitado.
+   Variantes: --primary, --outline  |  Tamanhos: --sm, --lg  |  Largura: --block
+   -------------------------------------------------------------------------- */
+.btn {
+  --btn-fill: var(--color-accent);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--touch-target);
+  padding: 0.875rem 1.75rem;
+  border: var(--border-width) solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  background-image: linear-gradient(var(--btn-fill), var(--btn-fill));
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: 0% 100%;
+  color: var(--color-accent);
+  font-size: var(--fs-label);
+  font-weight: var(--fw-semibold);
+  line-height: 1.2;
+  letter-spacing: var(--ls-widest);
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-size var(--transition-base),
+    color var(--transition-base),
+    border-color var(--transition-base),
+    box-shadow var(--transition-base),
+    transform var(--transition-base);
+}
+
+/* Principal: dourado sólido; no hover o preenchimento clareia */
+.btn--primary {
+  --btn-fill: var(--color-accent-hover);
+
+  background-color: var(--color-accent);
+  color: var(--color-text-on-accent);
+}
+
+/* Contorno: transparente; no hover o dourado desliza da esquerda para a direita */
+.btn--outline {
+  --btn-fill: var(--color-accent);
+}
+
+/* Tamanhos e largura */
+.btn--sm {
+  min-height: 2.75rem;
+  padding: 0.5rem 1.25rem;
+}
+
+.btn--lg {
+  min-height: 3.5rem;
+  padding: 1rem 2.25rem;
+}
+
+.btn--block {
+  display: flex;
+  width: 100%;
+}
+
+/* Hover (somente em dispositivos com mouse) e foco por teclado */
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover {
+    background-size: 100% 100%;
+    transform: translateY(var(--hover-lift));
+  }
+
+  .btn--outline:hover {
+    color: var(--color-text-on-accent);
+  }
+
+  .btn--primary:hover {
+    border-color: var(--color-accent-hover);
+    box-shadow: var(--shadow-gold);
+  }
+}
+
+.btn:focus-visible {
+  background-size: 100% 100%;
+  box-shadow: var(--shadow-focus);
+  outline-offset: 4px;
+}
+
+.btn--outline:focus-visible {
+  color: var(--color-text-on-accent);
+}
+
+/* Ativo (pressionado) */
+.btn:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: none;
+}
+
+/* Desabilitado */
+.btn[disabled],
+.btn[aria-disabled="true"] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   3. ESTRUTURA DE SEÇÃO (espaçamento, fundo, rótulo, título, introdução)
+   -------------------------------------------------------------------------- */
+.section {
+  position: relative;
+  padding-block: var(--section-padding-y);
+}
+
+.section--alt {
+  background-color: var(--color-bg-alt);
+}
+
+.section__header {
+  max-width: var(--container-narrow);
+  margin-inline: auto;
+  margin-bottom: var(--section-header-gap);
+  text-align: center;
+}
+
+.section__header--left {
+  margin-inline: 0;
+  text-align: left;
+}
+
+/* Rótulo em caixa-alta com filete dourado: "— NOSSOS SERVIÇOS —" */
+.section__label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  color: var(--color-accent);
+  font-size: var(--fs-label);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+}
+
+.section__label::before,
+.section__header:not(.section__header--left) .section__label::after {
+  content: "";
+  width: 2rem;
+  height: 1px;
+  background-color: currentColor;
+}
+
+.section__title {
+  font-size: var(--fs-2xl);
+  line-height: var(--lh-tight);
+}
+
+.section__intro {
+  max-width: 40rem;
+  margin-top: var(--space-4);
+  margin-inline: auto;
+  color: var(--color-text-muted);
+  font-size: var(--fs-base);
+  line-height: var(--lh-relaxed);
+}
+
+.section__header--left .section__intro {
+  margin-inline: 0;
+}
+
+/* --------------------------------------------------------------------------
+   4. BOTÃO FLUTUANTE DE WHATSAPP
+   Visível em celular e tablet; some no desktop, onde o header já tem o CTA.
+   -------------------------------------------------------------------------- */
+.whatsapp-float {
+  position: fixed;
+  right: max(var(--space-4), env(safe-area-inset-right));
+  bottom: max(var(--space-4), env(safe-area-inset-bottom));
+  z-index: var(--z-float);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 3.5rem;
+  padding: 0 var(--space-5) 0 var(--space-4);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-accent);
+  color: var(--color-text-on-accent);
+  box-shadow: var(--shadow-md);
+  transition:
+    background-color var(--transition-base),
+    box-shadow var(--transition-base),
+    transform var(--transition-base);
+}
+
+.whatsapp-float__icon {
+  flex-shrink: 0;
+}
+
+.whatsapp-float__label {
+  font-size: var(--fs-label);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .whatsapp-float:hover {
+    background-color: var(--color-accent-hover);
+    box-shadow: var(--shadow-gold);
+    transform: translateY(var(--hover-lift));
+  }
+}
+
+.whatsapp-float:active {
+  transform: scale(0.96);
+}
+
+@media (min-width: 64em) {
+  .whatsapp-float {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. LIGHTBOX DA GALERIA
+   Elemento <dialog> aberto com showModal() pelo gallery.js.
+   -------------------------------------------------------------------------- */
+.lightbox {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: var(--space-5);
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+  overflow: hidden;
+}
+
+.lightbox[open] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: lightbox-fade var(--duration-base) var(--ease-out);
+}
+
+.lightbox::backdrop {
+  background: var(--overlay-backdrop);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+.lightbox__figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  max-width: min(100%, 68rem);
+}
+
+.lightbox__image {
+  width: auto;
+  max-width: 100%;
+  max-height: calc(100vh - 10rem);
+  max-height: calc(100dvh - 10rem);
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lg);
+}
+
+.lightbox__caption {
+  color: var(--color-text-muted);
+  font-size: var(--fs-xs);
+  letter-spacing: var(--ls-wider);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.lightbox__close,
+.lightbox__nav {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: var(--touch-target);
+  height: var(--touch-target);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+  background-color: rgb(11 11 11 / 0.55);
+  color: var(--color-text);
+  font-size: 1.75rem;
+  line-height: 1;
+  transition:
+    background-color var(--transition-base),
+    border-color var(--transition-base),
+    color var(--transition-base);
+}
+
+.lightbox__close {
+  top: var(--space-4);
+  right: var(--space-4);
+}
+
+.lightbox__nav {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.lightbox__nav--prev { left: var(--space-3); }
+.lightbox__nav--next { right: var(--space-3); }
+
+@media (hover: hover) and (pointer: fine) {
+  .lightbox__close:hover,
+  .lightbox__nav:hover {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent);
+    color: var(--color-text-on-accent);
+  }
+}
+
+@media (min-width: 48em) {
+  .lightbox {
+    padding: var(--space-8);
+  }
+
+  .lightbox__nav--prev { left: var(--space-5); }
+  .lightbox__nav--next { right: var(--space-5); }
+}
+
+@keyframes lightbox-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
